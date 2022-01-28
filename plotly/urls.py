@@ -16,14 +16,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls import include
-from . import views
+from django.views.generic import RedirectView
+from django.contrib.auth import views as auth_views
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='admin'),
 ]
 
 urlpatterns += [
-    path('', views.index, name='index'),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('plot/', views.plot, name='plot'),
-    path('data/', views.data, name='data'),
+    path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
+    path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
+]
+
+urlpatterns += [
+    path('plot/', include('plot.urls')),
+    path('', RedirectView.as_view(url='/plot/', permanent=True)),
 ]

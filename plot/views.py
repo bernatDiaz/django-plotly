@@ -1,20 +1,26 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 import pandas as pd
+
+from plot.decorators import plot_permision_required
+
 
 df = pd.read_csv("http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data",
 names=["Sepal Length", "Sepal Width", "Petal Length", "Petal Width", "Class"])
 
+@login_required
 def index(request):
     return render(
         request,
-        'index.html',
+        'plot/index.html',
     )
 
+@plot_permision_required
 def plot(request):
     return render(
         request,
-        'plot.html'
+        'plot/plot.html'
     )
 
 def data(request):

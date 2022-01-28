@@ -3,7 +3,7 @@ function buildChart() {
     console.log("js");
     var colorlist = ['#FF3333','#4CFF33', '#3371FF']
     // Fetch the sample data for the plots
-    var url = '/data/';
+    var url = '/plot/data/';
     d3.json(url).then(function(response) {
         console.log(response)
         const sepal_length = response.sepal_length;
