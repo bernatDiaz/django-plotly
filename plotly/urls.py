@@ -19,6 +19,9 @@ from django.urls import include
 from django.views.generic import RedirectView
 from django.contrib.auth import views as auth_views
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
 ]
@@ -31,4 +34,4 @@ urlpatterns += [
 urlpatterns += [
     path('plot/', include('plot.urls')),
     path('', RedirectView.as_view(url='/plot/', permanent=True)),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
